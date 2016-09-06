@@ -34,7 +34,7 @@ namespace ID32Translit
         {
             if (inputstring != null)
             {
-                Regex regex = new Regex(@"[¸`A-Za-z0-9\s\.,-=+\(){}\[\]?|_@#$%^&*\t!""'/]");
+                Regex regex = new Regex(@"[¸`A-Za-z0-9\s\.,-=+\(){}\[\]?|_»«@#$%^&*\t!""'/]");
                 
                 MatchCollection matches = regex.Matches(inputstring);
                 
@@ -42,7 +42,6 @@ namespace ID32Translit
                 {
                     return true;
                 }
-                Console.WriteLine(inputstring + " -> " + matches.Count + " " + inputstring.Length);
                 return false;
             }
             return true;

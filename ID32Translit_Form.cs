@@ -90,6 +90,10 @@ namespace ID32Translit
                     {
                         ID3Data.newTitle = Transliteration.CyrillicToLatin(ID32TranslitTools.ConvertToUtf8(ID3.Tag.Title));
                     }
+                    else if (ID32TranslitTools.IsEnglish(ID3.Tag.Title))
+                    {
+                        ID3Data.newTitle = ID3Data.oldTitle;
+                    }
                     else
                     {
                         if(checkBox_SetFileNameToTitle.Checked == true)
@@ -124,6 +128,10 @@ namespace ID32Translit
                     {
                         ID3Data.newArtist = Transliteration.CyrillicToLatin(ID32TranslitTools.ConvertToUtf8(ID3.Tag.FirstPerformer));
                     }
+                    else if (ID32TranslitTools.IsEnglish(ID3.Tag.FirstPerformer))
+                    {
+                        ID3Data.newArtist = ID3Data.oldArtist;
+                    }
                     else if(checkBox_clearBadTags.Checked == true)
                     {
                         ID3Data.newArtist = null;
@@ -135,6 +143,10 @@ namespace ID32Translit
                     else if (ID32TranslitTools.isCyrillic(ID32TranslitTools.ConvertToUtf8(ID3.Tag.Album)))
                     {
                         ID3Data.newAlbum = Transliteration.CyrillicToLatin(ID32TranslitTools.ConvertToUtf8(ID3.Tag.Album));
+                    }
+                    else if (ID32TranslitTools.IsEnglish(ID3.Tag.Album))
+                    {
+                        ID3Data.newAlbum = ID3Data.oldAlbum;
                     }
                     else if (checkBox_clearBadTags.Checked == true)
                     {
@@ -188,7 +200,22 @@ namespace ID32Translit
                     ID3.Tag.Performers = null;
                     ID3.Tag.Performers = new[] { entry.Value.newArtist };
                     ID3.Tag.Album = entry.Value.newAlbum;
-                    ID3.Save();
+                    try
+                    {
+                        if (ID3.Writeable)
+                        {
+                            ID3.Save();
+                        }
+                        else
+                        {
+                            logData(entry.Value.fileName + " - не могу записать данные");
+                        }
+                    }
+                    catch (System.UnauthorizedAccessException error)
+                    {
+                        logData(entry.Value.fileName + " - не могу записать данные: "+error.Message);
+                    }
+                    
                     progressBar.PerformStep();
                 }
                 
