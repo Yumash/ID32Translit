@@ -1,3 +1,5 @@
 /bin/*
 /.vs/*
 /obj/Debug
+/publish/*
+/ID32Translit_TemporaryKey.pfx
