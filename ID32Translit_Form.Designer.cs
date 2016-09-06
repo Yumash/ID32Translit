@@ -38,12 +38,13 @@
             this.textBox_Result = new System.Windows.Forms.TextBox();
             this.contextMenuStrip_TextBox = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.toolStripMenuItem_ClearTextBox = new System.Windows.Forms.ToolStripMenuItem();
+            this.ToolStripMenuItem_SaveToFile = new System.Windows.Forms.ToolStripMenuItem();
             this.button_EditResult = new System.Windows.Forms.Button();
             this.button_ApplyResult = new System.Windows.Forms.Button();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.checkBox_SetFileNameToTitle = new System.Windows.Forms.CheckBox();
             this.checkBox_clearBadTags = new System.Windows.Forms.CheckBox();
-            this.ToolStripMenuItem_SaveToFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.contextMenuStrip_TextBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -96,6 +97,12 @@
             resources.ApplyResources(this.toolStripMenuItem_ClearTextBox, "toolStripMenuItem_ClearTextBox");
             this.toolStripMenuItem_ClearTextBox.Click += new System.EventHandler(this.toolStripMenu_ClearTextBox_Click);
             // 
+            // ToolStripMenuItem_SaveToFile
+            // 
+            this.ToolStripMenuItem_SaveToFile.Name = "ToolStripMenuItem_SaveToFile";
+            resources.ApplyResources(this.ToolStripMenuItem_SaveToFile, "ToolStripMenuItem_SaveToFile");
+            this.ToolStripMenuItem_SaveToFile.Click += new System.EventHandler(this.ToolStripMenuItem_SaveToFile_Click);
+            // 
             // button_EditResult
             // 
             resources.ApplyResources(this.button_EditResult, "button_EditResult");
@@ -127,12 +134,6 @@
             resources.ApplyResources(this.checkBox_clearBadTags, "checkBox_clearBadTags");
             this.checkBox_clearBadTags.Name = "checkBox_clearBadTags";
             this.checkBox_clearBadTags.UseVisualStyleBackColor = true;
-            // 
-            // ToolStripMenuItem_SaveToFile
-            // 
-            this.ToolStripMenuItem_SaveToFile.Name = "ToolStripMenuItem_SaveToFile";
-            resources.ApplyResources(this.ToolStripMenuItem_SaveToFile, "ToolStripMenuItem_SaveToFile");
-            this.ToolStripMenuItem_SaveToFile.Click += new System.EventHandler(this.ToolStripMenuItem_SaveToFile_Click);
             // 
             // Form_ID2Translit
             // 
@@ -173,6 +174,7 @@
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip_TextBox;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem_ClearTextBox;
         private System.Windows.Forms.ToolStripMenuItem ToolStripMenuItem_SaveToFile;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 

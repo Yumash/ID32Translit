@@ -133,7 +133,7 @@
     <value>12, 12</value>
   </data>
   <data name="button_SelectFolder.Size" type="System.Drawing.Size, System.Drawing">
-    <value>632, 34</value>
+    <value>666, 34</value>
   </data>
   <data name="button_SelectFolder.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
@@ -213,14 +213,11 @@
   <data name="&gt;&gt;button_Scan.ZOrder" xml:space="preserve">
     <value>8</value>
   </data>
-  <data name="checkBox_ScanRecursively.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
   <data name="checkBox_ScanRecursively.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_ScanRecursively.Location" type="System.Drawing.Point, System.Drawing">
-    <value>312, 86</value>
+    <value>346, 86</value>
   </data>
   <data name="checkBox_ScanRecursively.Size" type="System.Drawing.Size, System.Drawing">
     <value>183, 24</value>
@@ -249,20 +246,8 @@
   <metadata name="contextMenuStrip_TextBox.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
     <value>174, 17</value>
   </metadata>
-  <data name="toolStripMenuItem_ClearTextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 22</value>
-  </data>
-  <data name="toolStripMenuItem_ClearTextBox.Text" xml:space="preserve">
-    <value>Очистить вывод</value>
-  </data>
-  <data name="ToolStripMenuItem_SaveToFile.Size" type="System.Drawing.Size, System.Drawing">
-    <value>173, 22</value>
-  </data>
-  <data name="ToolStripMenuItem_SaveToFile.Text" xml:space="preserve">
-    <value>Сохранить в файл</value>
-  </data>
   <data name="contextMenuStrip_TextBox.Size" type="System.Drawing.Size, System.Drawing">
-    <value>174, 70</value>
+    <value>174, 48</value>
   </data>
   <data name="&gt;&gt;contextMenuStrip_TextBox.Name" xml:space="preserve">
     <value>contextMenuStrip_TextBox</value>
@@ -277,7 +262,7 @@
     <value>True</value>
   </data>
   <data name="textBox_Result.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 203</value>
+    <value>664, 203</value>
   </data>
   <data name="textBox_Result.TabIndex" type="System.Int32, mscorlib">
     <value>6</value>
@@ -293,6 +278,18 @@
   </data>
   <data name="&gt;&gt;textBox_Result.ZOrder" xml:space="preserve">
     <value>6</value>
+  </data>
+  <data name="toolStripMenuItem_ClearTextBox.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 22</value>
+  </data>
+  <data name="toolStripMenuItem_ClearTextBox.Text" xml:space="preserve">
+    <value>Очистить вывод</value>
+  </data>
+  <data name="ToolStripMenuItem_SaveToFile.Size" type="System.Drawing.Size, System.Drawing">
+    <value>173, 22</value>
+  </data>
+  <data name="ToolStripMenuItem_SaveToFile.Text" xml:space="preserve">
+    <value>Сохранить в файл</value>
   </data>
   <data name="button_EditResult.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
     <value>Bottom, Left</value>
@@ -340,7 +337,7 @@
     <value>NoControl</value>
   </data>
   <data name="button_ApplyResult.Location" type="System.Drawing.Point, System.Drawing">
-    <value>359, 412</value>
+    <value>393, 412</value>
   </data>
   <data name="button_ApplyResult.Size" type="System.Drawing.Size, System.Drawing">
     <value>283, 40</value>
@@ -367,7 +364,7 @@
     <value>12, 12</value>
   </data>
   <data name="progressBar.Size" type="System.Drawing.Size, System.Drawing">
-    <value>630, 34</value>
+    <value>664, 34</value>
   </data>
   <data name="progressBar.TabIndex" type="System.Int32, mscorlib">
     <value>9</value>
@@ -384,14 +381,11 @@
   <data name="&gt;&gt;progressBar.ZOrder" xml:space="preserve">
     <value>3</value>
   </data>
-  <data name="checkBox_SetFileNameToTitle.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
   <data name="checkBox_SetFileNameToTitle.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
   <data name="checkBox_SetFileNameToTitle.Location" type="System.Drawing.Point, System.Drawing">
-    <value>312, 116</value>
+    <value>346, 117</value>
   </data>
   <data name="checkBox_SetFileNameToTitle.Size" type="System.Drawing.Size, System.Drawing">
     <value>332, 24</value>
@@ -414,9 +408,6 @@
   <data name="&gt;&gt;checkBox_SetFileNameToTitle.ZOrder" xml:space="preserve">
     <value>2</value>
   </data>
-  <data name="checkBox_clearBadTags.Anchor" type="System.Windows.Forms.AnchorStyles, System.Windows.Forms">
-    <value>Top, Right</value>
-  </data>
   <data name="checkBox_clearBadTags.AutoSize" type="System.Boolean, mscorlib">
     <value>True</value>
   </data>
@@ -427,7 +418,7 @@
     <value>NoControl</value>
   </data>
   <data name="checkBox_clearBadTags.Location" type="System.Drawing.Point, System.Drawing">
-    <value>312, 146</value>
+    <value>346, 147</value>
   </data>
   <data name="checkBox_clearBadTags.Size" type="System.Drawing.Size, System.Drawing">
     <value>234, 24</value>
@@ -450,6 +441,9 @@
   <data name="&gt;&gt;checkBox_clearBadTags.ZOrder" xml:space="preserve">
     <value>1</value>
   </data>
+  <metadata name="saveFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>371, 17</value>
+  </metadata>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
@@ -457,7 +451,7 @@
     <value>9, 20</value>
   </data>
   <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
-    <value>656, 467</value>
+    <value>690, 467</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
     <value>ID2Translit</value>
@@ -479,6 +473,12 @@
   </data>
   <data name="&gt;&gt;ToolStripMenuItem_SaveToFile.Type" xml:space="preserve">
     <value>System.Windows.Forms.ToolStripMenuItem, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog.Name" xml:space="preserve">
+    <value>saveFileDialog</value>
+  </data>
+  <data name="&gt;&gt;saveFileDialog.Type" xml:space="preserve">
+    <value>System.Windows.Forms.SaveFileDialog, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Form_ID2Translit</value>

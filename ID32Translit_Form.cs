@@ -25,7 +25,7 @@ namespace ID32Translit
 
     public partial class Form_ID2Translit : Form
     {
-        Dictionary<int, ID32TranslitStruct> filesToRename = new Dictionary<int, ID32TranslitStruct>() { };
+        private Dictionary<int, ID32TranslitStruct> _filesToRename = new Dictionary<int, ID32TranslitStruct>() { };
 
         public Form_ID2Translit()
         {
@@ -41,9 +41,9 @@ namespace ID32Translit
 
         private void button_SelectFolder_Click(object sender, EventArgs e)
         {
-            filesToRename.Clear();
+            _filesToRename.Clear();
 
-            dialog_SelectFolder.SelectedPath = "E:\\Music\\VK";
+            dialog_SelectFolder.SelectedPath = "E:\\Music\\VK"; // TODO Remove this string
 
             dialog_SelectFolder.ShowDialog();
 
@@ -79,10 +79,9 @@ namespace ID32Translit
         private void button_Scan_Click(object sender, EventArgs e)
         {
             progressBar.Visible = true;
+
             String[] files;
             
-            
-
             progressBar.Minimum = 1;
             
             if (checkBox_ScanRecursively.Checked)
@@ -97,7 +96,9 @@ namespace ID32Translit
             progressBar.Maximum = files.Length;
             progressBar.Value = 1;
             progressBar.Step = 1;
+
             int i = 0;
+
             foreach (string file in files) {
                 logData("----");
                 TagLib.File ID3 = TagLib.File.Create(file);
@@ -141,7 +142,9 @@ namespace ID32Translit
                         logData("Нет кириллики - не переделываем альбом."); // TODO - Localization;
                     }
 
-                    filesToRename[i] = ID3Data;
+                    _filesToRename[i] = ID3Data;
+                    i++;
+                    // TODO Remove this block
                     logData("Допсвойства для дебага");
                     logData("AlbumArtists: "+String.Join(" ", ID3.Tag.AlbumArtists));
                     logData("AlbumSort: " + ID3.Tag.AlbumSort);
@@ -167,11 +170,12 @@ namespace ID32Translit
                 }
                 else
                 {
-                    logData("Пропускаем: " + ID3.Tag.Title); // TODO - Localization;
+                    logData("Пропускаем: " + file); // TODO - Localization;
                 }
-                i++;
+                
                 progressBar.PerformStep();
             }
+
             progressBar.Visible = false;
 
             logData("Завершили сканирование. Посмотрите - если всё устраивает - нажимайте Применить."); // TODO - Localization;
@@ -180,46 +184,71 @@ namespace ID32Translit
             
         }
 
-        Boolean checkIfID3AreInEnglish (ref TagLib.File ID3)
+        private Boolean checkIfID3AreInEnglish (ref TagLib.File ID3)
         {
-            Boolean ID3AreInEnglish = true;
             if (!IsEnglish(ID3.Tag.Title) || !IsEnglish(ID3.Tag.FirstPerformer) || !IsEnglish(ID3.Tag.Album))
             {
-                ID3AreInEnglish = false;
+                return false;
             }
-            return ID3AreInEnglish;
-            
+            return true;   
         }
 
-        void renameID3(int id)
+        private void renameID3(int id)
         {
-            TagLib.File ID3 = TagLib.File.Create(filesToRename[id].fileName);
+            logData("---");
+            logData("Начали работу с файлом "+_filesToRename[id].fileName);
 
-            if (!isCyrillic(ID3.Tag.Title) && checkBox_clearBadTags.Checked == true)
+            TagLib.File ID3 = TagLib.File.Create(_filesToRename[id].fileName);
+
+            if (!IsEnglish(ID3.Tag.Title) && !isCyrillic(ID3.Tag.Title) && checkBox_clearBadTags.Checked == true)
             {
+                logData("Очищаем тайтл "+ID3.Tag.Title);
                 ID3.Tag.Title = null;
             }
-            if (!isCyrillic(ID3.Tag.FirstPerformer) && checkBox_clearBadTags.Checked == true)
+            if (!IsEnglish(ID3.Tag.FirstPerformer) && !isCyrillic(ID3.Tag.FirstPerformer) && checkBox_clearBadTags.Checked == true)
             {
+                logData("Очищаем артиста " + ID3.Tag.FirstPerformer);
                 ID3.Tag.Performers = null;
             }
-            if (!isCyrillic(ID3.Tag.Album) && checkBox_clearBadTags.Checked == true)
+            if (!IsEnglish(ID3.Tag.Album) && !isCyrillic(ID3.Tag.Album) && checkBox_clearBadTags.Checked == true)
             {
+                logData("Очищаем альбом " + ID3.Tag.Album);
                 ID3.Tag.Album = null;
             }
 
             if (ID3.Tag.Title == null && checkBox_SetFileNameToTitle.Checked == true)
             {
-                // TODO
+                string filename = Path.GetFileNameWithoutExtension(_filesToRename[id].fileName);
+                if (!IsEnglish(filename))
+                {
+                    if (isCyrillic(filename))
+                    {
+                        ID3.Tag.Title = Transliteration.CyrillicToLatin(filename);
+                        logData("Перекодируем файл "+filename);
+                        logData("Ставим название из файла : "+ID3.Tag.Title);
+                    }
+                    else
+                    {
+                        logData("Название файла плохое: "+filename);
+                    }
+                }
+                else
+                {
+                    logData("Ставим название из файла: " + filename);
+                    ID3.Tag.Title = filename;
+                }
                 // Не забываем, что название файла тоже надо перекодировать в транслит
             }
 
             else
             {
-                ID3.Tag.Title = filesToRename[id].newTitle;
+                logData(ID3.Tag.Title+" => "+_filesToRename[id].newTitle);
+                ID3.Tag.Title = _filesToRename[id].newTitle;
+                logData(ID3.Tag.FirstPerformer + " => " + _filesToRename[id].newArtist);
                 ID3.Tag.Performers = null;
-                ID3.Tag.Performers[0] = filesToRename[id].newArtist;
-                ID3.Tag.Album = filesToRename[id].newAlbum;
+                ID3.Tag.Performers = new[] { _filesToRename[id].newArtist };
+                logData(ID3.Tag.Album + " => " + _filesToRename[id].newAlbum);
+                ID3.Tag.Album = _filesToRename[id].newAlbum;
             }
 
             ID3.Save();
@@ -227,15 +256,14 @@ namespace ID32Translit
 
 
 
-        Boolean isCyrillic(String s)
+        private Boolean isCyrillic(String s)
         {
-            bool result = false;
             if (s != null)
             {
-                result = Regex.IsMatch(s, @"\p{IsCyrillic}") ;
+                return Regex.IsMatch(s, @"\p{IsCyrillic}") ;
                 // TODO - менять кодировку и пробовать ещё раз, много тегов в другой кириллике
             }
-            return result;
+            return false;
         }
         Boolean IsEnglish(string inputstring)
         {
@@ -253,14 +281,26 @@ namespace ID32Translit
 
         private void button_ApplyResult_Click(object sender, EventArgs e)
         {
-            int c = filesToRename.Count();
-            for (int i = 0; i <= c; i++)
+            DialogResult dialogResult = MessageBox.Show("Вы уверены? Обратного пути не будет.", "Подтверждение выбора", MessageBoxButtons.YesNo); // TODO Localization
+            if (dialogResult == DialogResult.Yes)
             {
-                //renameID3(i);
+                int c = _filesToRename.Count()-1;
+
+                progressBar.Maximum = c;
+                progressBar.Value = 1;
+                progressBar.Step = 1;
+
+                for (int i = 0; i <= c; i++)
+                {
+                    renameID3(i);
+                    progressBar.PerformStep();
+                }
+
+                progressBar.Visible = false;
+                logData("Всё закончилось. Нажмите правой кнопкой на текстовом поле чтобы очистить его или сохранить результат в файл."); // TODO Localization
+                button_ApplyResult.Enabled = false;
+                button_EditResult.Enabled = false;
             }
-            logData("Всё закончилось. Нажмите правой кнопкой на текстовом поле чтобы очистить его или сохранить результат в файл."); // TODO Localization
-            button_ApplyResult.Enabled = false;
-            button_EditResult.Enabled = false;
         }
 
         private void checkBox_SetFileNameToTitle_CheckedChanged(object sender, EventArgs e)
@@ -272,12 +312,14 @@ namespace ID32Translit
             else
             {
                 checkBox_clearBadTags.Enabled = false;
+                checkBox_clearBadTags.Checked = false;
             }
         }
 
         private void button_EditResult_Click(object sender, EventArgs e)
         {
             // TODO
+            DialogResult dialogResult = MessageBox.Show("В следующей версии", "Не готово", MessageBoxButtons.OK); // TODO Localization
         }
 
         private void toolStripMenu_ClearTextBox_Click(object sender, EventArgs e)
@@ -287,7 +329,16 @@ namespace ID32Translit
 
         private void ToolStripMenuItem_SaveToFile_Click(object sender, EventArgs e)
         {
-            // TODO
+            SaveFileDialog save = new SaveFileDialog();
+            save.FileName = "ID32Translit_result.txt";
+            save.Filter = "Text File | *.txt";
+            if (save.ShowDialog() == DialogResult.OK)
+            {
+                StreamWriter writer = new StreamWriter(save.OpenFile());
+                writer.WriteLine(textBox_Result.Text);
+                writer.Dispose();
+                writer.Close();
+            }
         }
     }
 }
